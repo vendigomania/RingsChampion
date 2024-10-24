@@ -53,7 +53,7 @@ namespace Services
             StartCoroutine(UpdateScreen());
         }
 
-        private void UpdateSafeArea()
+        private void UpdateWVFrame()
         {
             Rect _safeArea = Screen.safeArea;
             
@@ -77,7 +77,7 @@ namespace Services
         IEnumerator UpdateScreen()
         {
             yield return null;
-            UpdateSafeArea();
+            UpdateWVFrame();
             wv.UpdateFrame();
         }
     }

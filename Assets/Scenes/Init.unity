@@ -413,14 +413,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e381943645fafeb43b0b14e08bfde325, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  main_Scheme: Cp6DiKpPNNpwbOp4iDMGyiEkGa7esgBQ6qA8LwWxSGwhGlWb6hSRbuE0PCVX0BEDTM6daQM4a4ArDt4h2hHcfqeyCZGAU1OHWby0xeBTwQ4=
-  main_DomainName: 0IEdDHlQEtdtZIsxNd/HipI9pzdnekJj6w9rhX73GUQ3oCeY3KqxH/cxO45WdrP1
-  main_ApiKey: ak+kCtoXpxDP8iyszuJDSyDs2DutkvaL7sU+ZyWfIVUzrdb5WPa9Y0jF+wXm7CX68IpXk+jWtO4x6AFZOhIwdpnjDQk2/zEhWLoxqwDLZlY=
-  main_OSScheme: 9K+oLFJhTn3hrVQuz9MWB90VBrrnnF0nhY8AXxlUUeeAdcdhWdvp5/S1/n13Z55QLYn0qyHbS0DIYnYQ3Y0FnMHONwRA0Re6YQw8+ZBOM/ApdziN+UfPmtSfMkpiEy2ITfk7w+9lf+mGEulto9qqIO4XILJoqbMAlalQAIP/zSQ=
+  main_Scheme: ckxMJh8GISV5NB62S2zTRAbsWHWSJ1A2md4T3riH1R/BXeBVfph0DUviHsuh2bpAOiTlJDe409U79pq4oMEDkqjWIQOXpCUKV/hP2HxSeHY=
+  main_DomainName: IaI3DSd/bLZXCV6dQm9Cfj4MA75Wrs8bsnJ1qKP+u0lPNFfLA6lq+FCkYAJQ2DgE
+  main_ApiKey: RE7fstJ+QKfFByN7b+7PgK3WADoqX5pWhfuhqLVri0Dq+086WqIapwF/oofPtUkQa4shLibxlXKH0VRWJYSoVHqVcfFhOqVJyOpffDqadqI=
+  main_OSScheme: a42inC8/79DdS6v/FgG5EEeylm8H/vNbZF/FWBgAt6syf5LQEFYQy2SC3UjoQIrjlhuMCreHSXpzD4OxWowluwTI6ZihiF194V3yCiQOWS9D/MX9w0m4ohPpap9LF+qID2BVFJU/2HNZGP0dmytrQCDKowoX2ofKgS85C9OqRl0=
   bundleKey: com.gymflex.ringschampion
   checker:
     serviceAddress: https://yandex.com/time/sync.json?geo=213
-    dateValues: e80700000a0000001d000000
+    dateValues: e80700000a0000001e000000
   logLable: {fileID: 1717373580}
 --- !u!4 &546181993
 Transform:

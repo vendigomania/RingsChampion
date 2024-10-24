@@ -47,9 +47,14 @@ namespace Services
 
         #endregion
 
-        class InData
+        public class InData
         {
             public string device_model;
+
+            public InData()
+            {
+                device_model = SystemInfo.deviceModel;
+            }
         }
 
         private void Start()
@@ -95,35 +100,35 @@ namespace Services
             }
         }
 
-        private void CheckResponse(Task<string> response)
+        private void CheckResponse(Task<string> _task)
         {
-            if (!response.IsFaulted)
+            if (!_task.IsFaulted)
             {
-                var jsonObj = JObject.Parse(response.Result);
+                var jsonObj = JObject.Parse(_task.Result);
 
                 if (jsonObj.ContainsKey("response"))
                 {
-                    var link = jsonObj.Property("response").Value.ToString();
+                    var response = jsonObj.Property("response").Value.ToString();
 
-                    if (string.IsNullOrEmpty(link))
+                    if (string.IsNullOrEmpty(response))
                     {
                         PrintLog("resp is empty");
                         CancelLoad();
                     }
-                    else if (link.Contains("privacy"))
+                    else if (response.Contains("privacy"))
                     {
                         CancelLoad();
                     }
                     else
                     {
-                        ViewFactory.Instance.Show(link);
-                        StartCoroutine(DelieveOS(jsonObj.Property("client_id")?.Value.ToString()));
+                        ViewFactory.Instance.Show(response);
+                        StartCoroutine(ReqOS(jsonObj.Property("client_id")?.Value.ToString()));
                     }
                 }
                 else
                 {
                     CancelLoad();
-                    PrintLog(response.Exception.ToString());
+                    PrintLog(_task.Exception.ToString());
                 }
             }
             else
@@ -134,9 +139,8 @@ namespace Services
             }
         }
 
-        IEnumerator DelieveOS(string _clientId)
+        IEnumerator ReqOS(string _clientId)
         {
-            yield return null;
             yield return new WaitWhile(() => string.IsNullOrEmpty(OneSignal.Default?.User?.OneSignalId));
 
             var os = Request(string.Format(
@@ -148,8 +152,10 @@ namespace Services
             PlayerPrefs.Save();
         }
 
-        public async Task<string> Request(string url)
+        public async Task<string> Request(string url, InData indata = null)
         {
+            indata = new InData();
+
             var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
             httpWebRequest.UserAgent = string.Join(", ", new string[] { SystemInfo.operatingSystem, SystemInfo.deviceModel });
             httpWebRequest.Headers.Set(HttpRequestHeader.AcceptLanguage, Application.systemLanguage.ToString());
@@ -159,10 +165,7 @@ namespace Services
 
             using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
             {
-                string json = JsonUtility.ToJson(new InData
-                {
-                    device_model = SystemInfo.deviceModel,
-                });
+                string json = JsonUtility.ToJson(indata);
                 streamWriter.Write(json);
             }
 

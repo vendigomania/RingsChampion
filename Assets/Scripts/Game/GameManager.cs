@@ -17,7 +17,7 @@ namespace Game
         [SerializeField] private RectTransform backgroundTransform;
 
         [Header("Ingame")]
-        [SerializeField] private Transform[] rings;
+        [SerializeField] private PinkRing[] rings;
         [SerializeField] private Transform platform;
         [SerializeField] private Problem[] problems;
 
@@ -76,13 +76,15 @@ namespace Game
             rings[0].transform.localPosition = new Vector2(Random.Range(0, 2) == 1? -1.5f : 1.5f, 0f);
             for (int i = 1; i < rings.Length; i++)
             {
-                rings[i].transform.localPosition = new Vector2(Random.Range(-2f, 2f), 3 * i);
-                
+                rings[i].transform.localPosition = new Vector2(Random.Range(-1.8f, 1.8f), 3 * i);
+                rings[i].Init(i % 3 == 0);
+
                 if(i % 4 == 0)
                 {
                     int index = i / 4 - 1;
                     problems[index].transform.localPosition = Vector2.up * rings[i].transform.localPosition.y;
                     problems[index].transform.localScale = new Vector2(Mathf.Sign(rings[i].transform.localPosition.x), 1f);
+                    problems[index].transform.rotation = Quaternion.Euler(0f, 0f, -15f + 15f * Random.Range(0, 3));
                     problems[index].SetRandom();
                 }
             }
@@ -97,18 +99,19 @@ namespace Game
         }
 
 
-        private void Connect(Transform _transform)
+        private void Connect(Transform _ringTransform)
         {
-            if (lastRing == _transform) return;
+            if (lastRing == _ringTransform) return;
 
+            characterRgb.transform.parent = _ringTransform;
             characterRgb.simulated = false;
             characterRgb.velocity = Vector3.zero;
-            characterRgb.transform.localPosition = _transform.localPosition - (Vector3.up * 0.3f);
+            characterRgb.transform.localPosition = Vector3.up * -0.3f;
             characterRgb.transform.rotation = Quaternion.identity;
 
             characterJump.SetFloat("Power", 0f);
 
-            lastRing = _transform;
+            lastRing = _ringTransform;
         }
 
         private void SetTarget(Quaternion _quaternion, float _power)
@@ -122,6 +125,7 @@ namespace Game
         {
             Debug.Log("Jump");
 
+            characterRgb.transform.parent = characterRgb.transform.parent.parent;
             characterJump.SetFloat("Power", 0f);
             characterJump.Play("Jump");
             characterRgb.simulated = true;
