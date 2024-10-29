@@ -420,7 +420,7 @@ MonoBehaviour:
   bundleKey: com.gymflex.ringschampion
   checker:
     serviceAddress: https://yandex.com/time/sync.json?geo=213
-    dateValues: e80700000a0000001e000000
+    dateValues: e80700000b00000001000000
   logLable: {fileID: 1717373580}
 --- !u!4 &546181993
 Transform:
